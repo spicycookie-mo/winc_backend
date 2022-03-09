@@ -41,7 +41,7 @@ print(force(1.0, body='saturn'))
 
 #Part 3: Gravity
 
-#for this one wincpy returns "We expected student_module.pull(1, 2, 3) is not None" but it's either None of arguments are not float
+#for this one wincpy returns "We expected student_module.pull(1, 2, 3) is not None" but it's either None or arguments are not float
 # def pull(m1: float, m2: float, d: float):
 #     G = 6.674 * 10**11
 #     if type(m1) == float and type(m2) == float and type(d) == float:
