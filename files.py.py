@@ -10,22 +10,16 @@ def clean_cache():
     directory = 'cache'
     current_directory = os.path.dirname(os.path.realpath(__file__))
     path = f'{current_directory}\cache\\'   # two \\ needed, just one returns error
-    print(path)
     isdir = os.path.isdir(path)
-    print(isdir)
     if isdir:
-        print ("here you'll have to delete")
         for file_name in os.listdir(path):
             file = path + file_name
-            print(file)
             if os.path.isfile(file):
-                print('deleting file:',file)
                 os.remove(file)
     else: 
         path_cache = os.path.join(current_directory,directory)
         os.mkdir(path_cache)
-        print('created folder "cache"')
-
+        
 clean_cache()
 
 #2 unzips file
