@@ -4,27 +4,24 @@ __human_name__ = "files"
 #1 creates a folder if it doesn't already exists. if it exists, loops through its files and empties it
 
 import os
-import os.path
+import shutil
 
 def clean_cache():
-    directory = 'cache'
     current_directory = os.path.dirname(os.path.realpath(__file__))
-    path = f'{current_directory}\cache\\'   # two \\ needed, just one returns error
+    path = os.path.join(current_directory, 'cache')
     isdir = os.path.isdir(path)
     if isdir:
         for file_name in os.listdir(path):
-            file = path + file_name
+            file = os.path.join(path, file_name)
             if os.path.isfile(file):
                 os.remove(file)
     else: 
-        path_cache = os.path.join(current_directory,directory)
+        path_cache = os.path.join(current_directory, 'cache')
         os.mkdir(path_cache)
         
 clean_cache()
 
 #2 unzips file
-
-import shutil
 
 def cache_zip(zip_file, dir_path):
     shutil.unpack_archive(zip_file, dir_path)
@@ -35,12 +32,11 @@ cache_zip("C:\\Users\\Monica Onutu\\Winc\\files\\data.zip", 'C:\\Users\\Monica O
 
 def cached_files():
     current_directory = os.path.dirname(os.path.realpath(__file__))
-    path = f'{current_directory}\cache\\'
-    print(path)
+    path = os.path.join(current_directory, 'cache')
     absolute_paths = []
     for file_name in os.listdir(path):
-            file = path + file_name
-            if os.path.isfile(file):
+        file = os.path.join(path, file_name)
+        if os.path.isfile(file):
                 absolute_paths.append(file)
     return absolute_paths
             
@@ -51,10 +47,13 @@ print(cached_files())
 
 def find_password(absolute_paths):
     for path in absolute_paths:
-        f = open(path, 'r')
-        contents = f.readlines()
-        for line in contents:
-            if 'password' in line:
-                return (line)
+        with open(path, 'r') as f: 
+            contents = f.readlines()
+            for line in contents:
+                if 'password' in line:
+                    password = line
+                    password = password.replace(" ", "")
+                    password = password.replace("password:", "")
+                    return (password)
                 
 print(find_password(cached_files()))
